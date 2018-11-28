@@ -1,0 +1,36 @@
+﻿@model MCS425_Demo.Models.JwtModels.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>JWT Index</h2>
+
+<form asp-controller="Jwt" asp-action="Index" method="post">
+    <div class="form-group">
+        <label asp-for="Minutes"></label>
+        <input asp-for="Minutes" class="form-control" />
+        <span asp-validation-for="Minutes" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Site"></label>
+        <select asp-for="Site" asp-items="Model.Sites"></select>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">Log in</button>
+    </div>
+
+</form>
+
+@if (Model != null && Model.Token != null)
+{
+    <h3>Your token is</h3>
+    <br />
+    <pre>@Model.Token</pre>
+}
+
+@if (Context.Request.Cookies.TryGetValue("site1url", out string site1))
+{
+    <a href="https://mcs425-app1.azurewebsites.net?token=@site1" class="btn">Go to Site</a>
+}
+
+

@@ -41,8 +41,8 @@ namespace MCS425_Demo
 
             services.AddMvc();
             services.AddAuthentication().AddGoogle(options => {
-                options.ClientId = "CLIENT ID HERE";
-                options.ClientSecret = "CLIENT SECRET HERE";
+                options.ClientId = "";
+                options.ClientSecret = "";
                 options.Scope.Add("profile");
             });
 

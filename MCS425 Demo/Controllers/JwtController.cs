@@ -25,7 +25,7 @@ namespace MCS425_Demo.Controllers
             items.Add(new SelectListItem()
             {
                 Text = "site1",
-                Value = "site1url"
+                Value = "mcs425-app1.azurewebsites.net"
             });
             //items.Add(new SelectListItem()
             //{
@@ -42,8 +42,8 @@ namespace MCS425_Demo.Controllers
 
 
             var options = new CookieOptions();
-            //options.Domain = "mcs425-jterhark.azurewebsites.net";
-            options.Domain = "localhost";
+            options.Domain = "mcs425-jterhark.azurewebsites.net";
+            //options.Domain = "localhost";
 
             var token = GenerateToken(model.Site, model.Minutes);
 
@@ -60,11 +60,12 @@ namespace MCS425_Demo.Controllers
             );
 
             //get epoch times
-            var issued = (int)(DateTime.Now - new DateTime(1970, 1, 1)).TotalSeconds;
-            var expires = (int)(DateTime.Now.AddMinutes(minutes) - new DateTime(1970, 1, 1)).TotalSeconds;
+            var issued = (int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
+            var expires = (int)(DateTime.UtcNow.AddMinutes(minutes) - new DateTime(1970, 1, 1)).TotalSeconds;
 
             var payload = new JObject(
-                new JProperty("iss", "localhost"),
+                //new JProperty("iss", "localhost"),
+                new JProperty("iss", "mcs425-jterhark.azurewebsites.net"),
                 new JProperty("sub", HttpContext.Session.GetString("email")),
                 new JProperty("name", HttpContext.Session.GetString("name")),
                 new JProperty("exp", expires),
